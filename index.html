@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Monster Slayer</title>
+    <script src="https://npmcdn.com/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="foundation.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+    <section class="row">
+        <div class="small-6 columns">
+            <h1 class="text-center">YOU</h1>
+            <div class="healthbar">
+                <div 
+                  class="healthbar text-center" 
+                  style="background-color: green; margin: 0; color: white;line-height: 40px;"
+                  :style="{width: yourLife + '%'}">
+                  {{ yourLife }}
+                </div>
+            </div>
+        </div>
+        <div class="small-6 columns">
+            <h1 class="text-center">MONSTER</h1>
+            <div class="healthbar">
+                <div 
+                  class="healthbar text-center" 
+                  style="background-color: green; margin: 0; color: white;line-height: 40px;"
+                  :style="{width: monsterLife + '%'}">
+                  {{ monsterLife }}
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="row controls" v-if="showAction">
+        <div class="small-12 columns">
+            <button id="start-game" @click="resetGame">START NEW GAME</button>
+        </div>
+    </section>
+    <section class="row controls" v-else>
+        <div class="small-12 columns">
+            <button id="attack"         @click="attack">ATTACK</button>
+            <button id="special-attack" @click="specialAttack">SPECIAL ATTACK</button>
+            <button id="heal"           @click="heal" :disabled="yourLife >= 100">HEAL</button>
+            <button id="give-up"        @click="showAction = !this.showAction">GIVE UP</button>
+        </div>
+    </section>
+    <section class="row log" v-if="listAction.length > 0">
+        <div class="small-12 columns">
+            <ul>
+                <li v-for="(action, index) in listAction">
+                  <template v-if="index % 2">
+                    <li style="backgroundColor: lightGreen;">{{ action }}</li>
+                  </template>
+                  <template v-else>
+                    <li style="backgroundColor: lightBlue;">{{ action }}</li>
+                  </template>
+                </li>
+            </ul>
+        </div>
+    </section>
+</div>
+<script src="main.js"></script>
+</body>
+</html>
